@@ -1,15 +1,13 @@
-from fastapi import FastAPI, Depends
-from sqlalchemy.orm import Session
-from sqlalchemy import text
-from app.core.database import get_db
+from fastapi import FastAPI
+from app.router import auth, expenses
+from app.router import category
 
 app = FastAPI(title="FinSight AI API")
+
+app.include_router(auth.router)
+app.include_router(expenses.router)
+app.include_router(category.router)
 
 @app.get("/health")
 def health_check():
     return {"status": "ok"}
-
-@app.get("/db-check")
-def db_check(db: Session = Depends(get_db)):
-    db.execute(text("SELECT 1"))
-    return {"database": "connected"}
