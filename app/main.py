@@ -1,12 +1,15 @@
 from fastapi import FastAPI
-from app.router import auth, expenses
-from app.router import category
+from strawberry.fastapi import GraphQLRouter
+from app.router import auth
+from app.graphql.schema import schema
+from app.graphql.context import get_context
 
 app = FastAPI(title="FinSight AI API")
 
 app.include_router(auth.router)
-app.include_router(expenses.router)
-app.include_router(category.router)
+
+graphql_app = GraphQLRouter(schema, context_getter=get_context)
+app.include_router(graphql_app, prefix="/graphql")
 
 @app.get("/health")
 def health_check():
