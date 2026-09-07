@@ -1,4 +1,15 @@
 services:
+  api:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      DATABASE_URL: postgresql://finsight:finsight_pass@db:5432/finsight_db
+      REDIS_HOST: redis
+    depends_on:
+      - db
+      - redis
+
   db:
     image: postgres:16
     restart: always
@@ -10,6 +21,7 @@ services:
       - "5433:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
+
   redis:
     image: redis:7-alpine
     restart: always
