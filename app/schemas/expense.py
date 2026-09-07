@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 from datetime import datetime
 
 class ExpenseCreate(BaseModel):
@@ -13,5 +13,4 @@ class ExpenseOut(BaseModel):
     date: datetime
     category_id: int | None
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
