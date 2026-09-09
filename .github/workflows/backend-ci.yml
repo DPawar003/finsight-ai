@@ -49,26 +49,26 @@ jobs:
       - name: Build backend Docker image
         run: docker build -t finsight-ai-api .
 
-  # frontend-test:
-  #   runs-on: ubuntu-latest
-  #   defaults:
-  #     run:
-  #       working-directory: frontend
-  #   steps:
-  #     - uses: actions/checkout@v4
-  #
-  #     - name: Set up Flutter
-  #       uses: subosito/flutter-action@v2
-  #       with:
-  #         flutter-version: "3.24.0"
-  #         channel: stable
-  #
-  #     - name: Install Flutter dependencies
-  #       run: flutter pub get
-  #
-  #     - name: Analyze Flutter code
-  #       run: flutter analyze
-  #
-  #     - name: Run Flutter tests
-  #       run: flutter test
-  # ^ Uncomment this job on Day 7, once the Flutter app exists in frontend/
+  frontend-test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
+    steps:
+      - uses: actions/checkout@v4
+  
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: "3.24.0"
+          channel: stable
+  
+      - name: Install Flutter dependencies
+        run: flutter pub get
+  
+      - name: Analyze Flutter code
+        run: flutter analyze
+  
+      - name: Run Flutter tests
+        run: flutter test
+  
